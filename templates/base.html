@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Albumbewertungen{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<header onclick="window.location.href='{{ url_for('reviews.main_page') }}'">
+    <div class="header-left">
+        <button class="add-album"
+                onclick="event.stopPropagation(); window.location.href='{{ url_for('reviews.add_album') }}'">Album
+            hinzufügen
+        </button>
+    </div>
+    <div class="header-right">
+        {% if current_user.is_authenticated %}
+            <button class="login" onclick="event.stopPropagation(); window.location.href='{{ url_for('auth.logout') }}'">Logout</button>
+        {% else %}
+            <button class="login" onclick="event.stopPropagation(); window.location.href='{{ url_for('auth.login') }}'">Login</button>
+        {% endif %}
+    </div>
+</header>
+{% block content %}{% endblock %}
+</body>
+</html>

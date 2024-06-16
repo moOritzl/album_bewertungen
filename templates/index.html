@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Startseite{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% for album in albums %}
+            <div class="album">
+                <div class="album-cover"
+                     style="background-image: url('{{ url_for('static', filename='album_covers/' ~ album.id ~ '.jpg') }}');"></div>
+                <div class="album-info">
+                    <div class="album-details">
+                        <p class="artist">{{ album.artist }}</p>
+                        <p class="album-name">{{ album.name }}</p>
+                    </div>
+
+                    <div class="rating-block">
+                        <p class="reviewer">Elias</p>
+                        <p class="rating">9/10</p>
+                    </div>
+                    <div class="rating-block">
+                        <p class="reviewer">Moritz</p>
+                        <p class="rating">8/10</p>
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

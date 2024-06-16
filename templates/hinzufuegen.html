@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Album hinzufügen{% endblock %}
+
+{% block content %}<!DOCTYPE html>
+
+<div class="container">
+    <form action="{{ url_for('reviews.add_album') }}" method="POST">
+        <div>
+            <label for="artist">Künstler:</label>
+            <input type="text" id="artist" name="artist" required>
+        </div>
+        <div>
+            <label for="name">Album Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="year">Jahr:</label>
+            <input type="number" id="year" name="year" required>
+        </div>
+        <button type="submit">Album hinzufügen</button>
+    </form>
+</div>
+{% endblock %}
