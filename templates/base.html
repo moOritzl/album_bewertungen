@@ -16,12 +16,17 @@
     </div>
     <div class="header-right">
         {% if current_user.is_authenticated %}
-            <button class="login" onclick="event.stopPropagation(); window.location.href='{{ url_for('auth.logout') }}'">Logout</button>
+            <button class="login"
+                    onclick="event.stopPropagation(); window.location.href='{{ url_for('auth.logout') }}'">Logout
+            </button>
         {% else %}
-            <button class="login" onclick="event.stopPropagation(); window.location.href='{{ url_for('auth.login') }}'">Login</button>
+            <button class="login" onclick="event.stopPropagation(); window.location.href='{{ url_for('auth.login') }}'">
+                Login
+            </button>
         {% endif %}
     </div>
 </header>
 {% block content %}{% endblock %}
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
