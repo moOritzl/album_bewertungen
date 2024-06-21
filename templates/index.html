@@ -4,40 +4,76 @@
 
 {% block content %}
     <div class="container">
-        {% for album in albums %}
+        {% for data in album_data %}
             <div class="album" onclick="toggleCommentSection(this)">
                 <div class="album-preview">
                     <div class="album-cover"
-                         style="background-image: url('{{ url_for('static', filename='album_covers/' ~ album.id ~ '.jpg') }}');"></div>
+                         style="background-image: url('{{ url_for('static', filename='album_covers/' ~ data.album.id ~ '.jpg') }}');"></div>
                     <div class="album-info">
                         <div class="album-details">
-                            <p class="artist">{{ album.artist }}</p>
-                            <p class="album-name">{{ album.name }}</p>
+                            <p class="artist">{{ data.album.artist }}</p>
+                            <p class="album-name">{{ data.album.name }}</p>
                         </div>
 
                         <div class="rating-container">
                             <div class="rating-block">
-                                <p class="reviewer">Elias</p>
-                                <p class="rating">9/10</p>
+                                <p class="reviewer">Moritz</p>
+                                <p class="rating">
+                                    {% if data.ratings[1] %}
+                                        {{ data.ratings[1].rating }}/10
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </p>
                             </div>
                             <div class="rating-block">
-                                <p class="reviewer">Moritz</p>
-                                <p class="rating">8/10</p>
+                                <p class="reviewer">Elias</p>
+                                <p class="rating">
+                                    {% if data.ratings[2] %}
+                                        {{ data.ratings[2].rating }}/10
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="album-comment-section" style="display: none;">
-                    <div class="comment-box">
-                        <div class="comment-elias">
-                            <p class="comment-title">Kommentar von Elias</p>
-                            <p class="comment-content">Super Album!</p>
-                        </div>
-                    </div>
+                <div class="album-comment-section">
                     <div class="comment-box">
                         <div class="comment-moritz">
                             <p class="comment-title">Kommentar von Moritz</p>
-                            <p class="comment-content">Super Album!</p>
+                            <p class="comment-content">
+                                {% if data.comments[1] %}
+                                    {{ data.comments[1].content }}
+                                {% else %}
+                                    Noch kein Kommentar geschrieben
+                                {% endif %}
+                            </p>
+                            {% if current_user.id == 1 %}
+                                <button class="comment-edit-button"
+                                        onclick="event.stopPropagation(); window.location.href='{{ url_for('reviews.edit_album', album_id=data.album.id) }}'">
+                                    edit
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="comment-box">
+                        <div class="comment-elias">
+                            <p class="comment-title">Kommentar von Elias</p>
+                            <p class="comment-content">
+                                {% if data.comments[2] %}
+                                    {{ data.comments[2].content }}
+                                {% else %}
+                                    Noch kein Kommentar geschrieben
+                                {% endif %}
+                            </p>
+                            {% if current_user.id == 2 %}
+                                <button class="comment-edit-button"
+                                        onclick="event.stopPropagation(); window.location.href='{{ url_for('reviews.edit_album', album_id=data.album.id) }}'">
+                                    edit
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

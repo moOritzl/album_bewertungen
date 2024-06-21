@@ -6,7 +6,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
 }
 
@@ -15,10 +14,13 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 40px; /* Mehr Padding, um die Buttons weiter von den Ecken zu entfernen */
+    padding: 10px 40px;
     box-sizing: border-box;
     position: fixed;
     top: 0;
+    z-index: 1000;
+    background-color: #1a1a3d;
+    height: 60px; /* Füge diese Zeile hinzu, um die Höhe des Headers festzulegen */
 }
 
 .header-left {
@@ -35,25 +37,25 @@ button {
     background-color: white;
     color: #1a1a3d;
     border: none;
-    padding: 15px 30px; /* Mehr Padding für die Buttons */
-    border-radius: 20px; /* Komplett abgerundet */
+    padding: 15px 30px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Dezente Animation */
-    margin: 0 10px; /* Fügt einen kleinen Abstand zwischen den Buttons und von den Rändern hinzu */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 0 10px;
 }
 
 button:hover {
     background-color: #444;
-    transform: scale(1.05); /* Kleinere Vergrößerung */
+    transform: scale(1.05);
 }
 
 .container {
-    display: flex;
-    flex-direction: column; /* Alben untereinander anordnen */
+    display: grid;
+    flex-direction: column;
     align-items: center;
-    width: 90%; /* Nimmt 90% der Bildschirmbreite ein */
-    max-width: 1200px; /* Setzt ein Maximum für die Breite */
-    margin-top: 60px; /* Platz für den fixierten Header */
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 80px; /* Setze hier den Wert auf die Höhe des Headers plus einen kleinen Puffer */
 }
 
 .album {
@@ -61,10 +63,10 @@ button:hover {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    width: 100%; /* Nimmt die gesamte Breite des Containers ein */
+    width: 100%;
     padding: 20px;
     transition: transform 0.3s ease;
-    margin: 10px 0; /* Abstand zwischen den Alben */
+    margin: 10px 0;
     cursor: pointer;
 }
 
@@ -75,14 +77,14 @@ button:hover {
 .album-preview {
     display: flex;
     align-items: center;
-    position: relative; /* Add relative positioning */
-    padding-right: 200px; /* Ensures space for the rating blocks */
+    position: relative;
+    padding-right: 200px;
 }
 
 .album-cover {
     width: 100px;
     height: 100px;
-    background-size: contain; /* Passt das Bild an, sodass es vollständig im Container angezeigt wird */
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     margin-right: 20px;
@@ -97,29 +99,25 @@ button:hover {
 }
 
 .album-details {
-    margin-right: auto; /* Pushes the album details to the left */
+    margin-right: auto;
 }
 
 .rating-container {
-    display: flex; /* Makes sure the rating blocks are in a row */
+    display: flex;
     position: absolute;
-    bottom: 10px; /* Position the rating blocks towards the bottom */
-    right: 10px; /* Position the rating blocks towards the right */
+    bottom: 10px;
+    right: 10px;
 }
 
 .rating-block {
-    margin-left: 30px; /* Adds space between rating blocks */
+    margin-left: 30px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
-.rating-block + .rating-block {
-    bottom: 50px; /* Adjust this value to position the second rating block above the first */
-}
-
 .title, .rating, .reviewer {
-    font-size: 24px; /* Größere Schriftgröße */
+    font-size: 24px;
     margin: 0 0 10px;
 }
 
@@ -134,13 +132,19 @@ button:hover {
 }
 
 .rating {
-    font-size: 20px; /* Kleinere Schriftgröße für Bewertungen */
+    font-size: 20px;
 }
 
 .album-comment-section {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.album-comment-section.expanded {
+    max-height: 1000px;
 }
 
 .comment-box {
@@ -148,7 +152,25 @@ button:hover {
     border-radius: 10px;
     padding: 15px;
     margin: 10px 5px;
-    flex: 0 0 48%; /* Ensures each comment box takes up about half the available width */
+    flex: 0 0 48%;
+    position: relative;
+}
+
+.comment-edit-button {
+    position: absolute; /* Füge diese Zeile hinzu */
+    bottom: 10px; /* Abstand vom unteren Rand */
+    right: 20px; /* Abstand vom rechten Rand */
+    background-color: white; /* Stil des Buttons */
+    color: #1a1a3d;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.comment-edit-button:hover {
+    background-color: #555;
 }
 
 @media (max-width: 768px) {
@@ -157,12 +179,11 @@ button:hover {
     }
 
     .comment-box {
-        flex: 1 1 100%; /* Full width for smaller screens */
+        flex: 1 1 100%;
         max-width: 100%;
         margin: 10px 0;
     }
 }
-
 
 .comment-title {
     font-size: 18px;

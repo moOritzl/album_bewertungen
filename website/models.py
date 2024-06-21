@@ -1,6 +1,7 @@
 from . import db
 from flask_login import UserMixin
 
+
 class Album(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)

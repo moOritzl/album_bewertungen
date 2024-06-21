@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Bewertung bearbeiten{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Bewertung bearbeiten für {{ album.name }} von {{ album.artist }}</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="rating">Bewertung</label>
+                <input type="number" id="rating" name="rating" class="form-control" min="1" max="10"
+                       value="{{ rating.rating if rating else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="comment">Kommentar</label>
+                <textarea id="comment" name="comment" class="form-control" rows="3"
+                          required>{{ comment.content if comment else '' }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+        </form>
+    </div>
+{% endblock %}
